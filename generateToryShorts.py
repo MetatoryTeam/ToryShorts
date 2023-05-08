@@ -61,7 +61,7 @@ music = AudioFileClip(music_file)
 
 # Combine video, image and music
 video_with_image = CompositeVideoClip([video, image.set_duration(video.duration), image_name.set_duration(video.duration)])
-final_clip = concatenate_videoclips([intro, video_with_image, outro])
+final_clip = concatenate_videoclips([video_with_image, outro])
 
 if music.duration < final_clip.duration:
     music = music.loop_to_duration(final_clip.duration)
@@ -69,6 +69,9 @@ else:
     music = music.subclip(0, final_clip.duration)
 
 final_clip = final_clip.set_audio(music)
+
+#Intro + final_clip(playing video + outro)
+final_clip = concatenate_videoclips([intro,final_clip])
 
 
 # Export final video
