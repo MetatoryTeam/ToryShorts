@@ -30,6 +30,9 @@ jobs:
     - name: GENERATE
       run: |
          python ./generateToryShorts.py
+    - name: Archive
+      run: |
+         python ./archive.py
     - name: Commits
       run: |
         git config --local user.email "ika7204@naver.com"
