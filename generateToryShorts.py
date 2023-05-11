@@ -1,4 +1,5 @@
 import os
+import shutil
 import random
 from moviepy.editor import *
 
@@ -19,9 +20,14 @@ outro_dir = "./outro"
 outro_file = os.path.join(outro_dir, "Outro.mp4")
 outro = VideoFileClip(outro_file)
 
+#다운로드가 잘 이루어졌는 지 확인하는 코드
+download_dir = "./drive/"
+if not os.path.exists(download_dir):    #drive 디렉토리가 있는 지 확인 -> 코드 맨 마지막에 drive 디렉토리 삭제
+    asset_dir  = "./asset"              #없으면 기존의 에셋 활용
+else:
+    asset_dir  = "./drive"              #있으면 drive의 영상 활용
 
 # Load random video file and trim to 9 seconds
-asset_dir = "./asset"
 video_files = [f for f in os.listdir(asset_dir) if f.endswith(('.mp4', '.avi', '.mov', '.mkv'))]
 random_video_file = random.choice(video_files)
 
@@ -76,3 +82,9 @@ final_clip = concatenate_videoclips([intro,final_clip])
 
 # Export final video
 final_clip.write_videofile("output_video.mp4", codec="libx264", audio_codec="aac")
+
+#drive 디렉토리 삭제
+if os.path.exists(download_dir):
+    shutil.rmtree(download_dir)
+else:
+    print("drive 영상 다운로드 실패! 기존 에셋 영상을 통한 제작 진행")
