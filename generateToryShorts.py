@@ -83,7 +83,7 @@ final_clip = concatenate_videoclips([intro,final_clip])
 # Export final video
 final_clip.write_videofile("output_video.mp4", codec="libx264", audio_codec="aac")
 
-#drive 디렉토리 삭제
+#drive 디렉토리 삭제 -> 커밋할 수 있는 파일 크기 때문에
 if os.path.exists(download_dir):
     shutil.rmtree(download_dir)
 else:
