@@ -14,7 +14,6 @@ intro_music_file = os.path.join(intro_dir, only_music_file)
 intro_music = AudioFileClip(intro_music_file)
 intro = intro.set_audio(intro_music)
 
-
 # Load outro video
 outro_dir = "./outro"
 outro_file = os.path.join(outro_dir, "Outro.mp4")
@@ -44,7 +43,7 @@ name_dir = "./"
 name_image_file = "name.png"
 
 name_file = os.path.join(name_dir, name_image_file)
-image_name = ImageClip(name_file).set_pos((0, 2909))
+image_name = ImageClip(name_file).set_pos((0, 2735))
 
 
 # Load random image file and resize to 1280x1280
@@ -85,6 +84,6 @@ final_clip.write_videofile("output_video.mp4", codec="libx264", audio_codec="aac
 
 #drive 디렉토리 삭제 -> 커밋할 수 있는 파일 크기 때문에
 if os.path.exists(download_dir):
-    shutil.rmtree(download_dir)
+    shutil.rmtree(download_dir) # -> 디렉토리 안의 비었을 때 : os.removedir(dir), 디렉토리 안에 파일이 있을 때 : shutil.rmtree(dir)
 else:
     print("drive 영상 다운로드 실패! 기존 에셋 영상을 통한 제작 진행")
