@@ -43,7 +43,7 @@ name_dir = "./"
 name_image_file = "name.png"
 
 name_file = os.path.join(name_dir, name_image_file)
-image_name = ImageClip(name_file).resize((2000, 778)).set_pos((80, 2291))
+image_name = ImageClip(name_file).resize((2000, 778)).set_pos((80, 2417))
 
 
 # Load random image file and resize to 1280x1280
