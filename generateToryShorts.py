@@ -2,7 +2,9 @@ import os
 import shutil
 import random
 from moviepy.editor import *
-
+import requests
+#dataset.py에서 불러옴
+import dataset
 
 # Load intro video and audio
 intro_dir = "./intro"
@@ -39,15 +41,38 @@ if video.duration > 9:
     video = video.subclip(start_time, end_time)
 
 # Load random image file and resize to 1280x1280
-name_dir = "./"
-name_image_file = "name.png"
+name_dir = "./name/"
+name_image_file = random.choice([f for f in os.listdir(name_dir) if f.endswith(('.jpg', '.jpeg', '.png'))])
 
 name_file = os.path.join(name_dir, name_image_file)
 image_name = ImageClip(name_file).resize((2000, 778)).set_pos((80, 2578))
 
+#생성 AI를 통해 문제 이미지 생성
+try:
+  data = dataset.chooseData()
+  print(data)
+
+  API_URL = "https://api-inference.huggingface.co/models/SG161222/Realistic_Vision_V1.4"
+  headers = {"Authorization": "Bearer " + os.getenv("API_KEY")}
+
+  def query(payload):
+    response = requests.post(API_URL, headers=headers, json=payload)
+    return response.content
+  image_bytes = query({
+    "inputs": data,
+  })
+  # You can access the image with PIL.Image for example
+  import io
+  from PIL import Image
+  image = Image.open(io.BytesIO(image_bytes))
+  image.save('./generate/quiz.png', 'png')
+
+  image_dir = "./generate/"
+except:
+  image_dir  = "./image"   
+  print("생성AI 실패")
 
 # Load random image file and resize to 1280x1280
-image_dir = "./image"
 image_files = [f for f in os.listdir(image_dir) if f.endswith(('.jpg', '.jpeg', '.png'))]
 random_image_file = random.choice(image_files)
 
