@@ -54,7 +54,7 @@ try:
 
   API_URL = "https://api-inference.huggingface.co/models/SG161222/Realistic_Vision_V1.4"
   headers = {"Authorization": "Bearer " + os.getenv("API_KEY")}
-
+  
   def query(payload):
     response = requests.post(API_URL, headers=headers, json=payload)
     return response.content
@@ -68,9 +68,12 @@ try:
   image.save('./generate/quiz.png', 'png')
 
   image_dir = "./generate/"
-except:
-  image_dir  = "./image"   
-  print("생성AI 실패")
+  print("생성AI 성공")
+
+except Exception as e:
+    print("An error occurred:", e)
+    image_dir  = "./image"   
+    print("생성AI 실패")
 
 # Load random image file and resize to 1280x1280
 image_files = [f for f in os.listdir(image_dir) if f.endswith(('.jpg', '.jpeg', '.png'))]
