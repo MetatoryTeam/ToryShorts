@@ -2,6 +2,7 @@ import os
 import shutil
 import random
 from moviepy.editor import *
+from PIL import Image
 import requests
 #dataset.py에서 불러옴
 import dataset
@@ -81,6 +82,15 @@ random_image_file = random.choice(image_files)
 
 image_file = os.path.join(image_dir, random_image_file)
 image = ImageClip(os.path.join(image_dir, random_image_file)).resize((1000, 1000)).set_pos((580, 302))
+
+# ImageClip을 numpy array로 변환
+image_array = image.get_frame(0)  # 0초 시점의 프레임을 가져옵니다.
+
+# numpy array를 PIL Image 객체로 변환
+image_pil = Image.fromarray(image_array)
+
+# PIL 객체를 이미지 파일로 저장
+image_pil.save('./quiz.png')
 
 
 # Load random music file
