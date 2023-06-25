@@ -6,6 +6,10 @@ import random
 file_list = ["1UXDZ7wUAH56cjU9iauLWeMbaVGiti6K2",]
 file_id = random.choice(file_list)
 
+#영상리스트
+#우주선타고 놀기
+#https://drive.google.com/file/d/1-94-qEj0cRVxzkcmyRwKMgzkopamrH1f/view?usp=sharing
+
 # 다운로드 받을 디렉토리 경로를 설정합니다.
 #drive 디렉토리를 만들어서 구글 드라이브 영상을 저장할 디렉토리를 설정합니다.
 download_dir = "./drive/"
